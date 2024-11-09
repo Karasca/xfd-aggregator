@@ -1,0 +1,7 @@
+.container
+    %h1.mb-4.text-4xl Albums
+    = link_to "New Album", new_album_path
+    %ul
+    - @albums.each do | album |
+        %li
+        - link_to album.name, album

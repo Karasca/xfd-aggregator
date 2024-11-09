@@ -1,0 +1,28 @@
+%h1 New Album
+
+%div
+= form_for @album do |form|
+    = form.label :name
+    = form.text_field :name
+    %div
+    = form.fields_for :crossfade, @album.crossfade.build do |crossfade|
+        = crossfade.label :link
+        = crossfade.text_field :link
+    %div
+    = form.fields_for :circle, @album.build_circle do |circle|
+        = circle.label :name
+        = circle.text_field :name
+    %div
+    = form.fields_for :genres, @album.genres.build do | genre |
+        = genre.label :name
+        = genre.text_field :name
+    %div
+    = form.fields_for :events, @album.events.build do | event |
+        = event.label :name
+        = event.text_field :name
+        = event.label :date
+        = event.text_field :date
+        = event.label :location
+        = event.text_field :location
+    %div
+    = form.submit
