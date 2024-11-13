@@ -1,4 +1,6 @@
 class AlbumsController < ApplicationController
+  # before_action :authenticate_admin!
+
   def index
     @albums = Album.all
   end
@@ -25,8 +27,8 @@ class AlbumsController < ApplicationController
   private 
     def album_params
       params.require(:album).permit(:name, 
-      genre_attributes: [:name], 
-      event_attributes: [:name, :date,:location],
+      genres_attributes: [:name], 
+      events_attributes: [:name, :date,:location],
       crossfade_attributes: [:link],
       circle_attributes: [:name]
       )

@@ -1,0 +1,5 @@
+%div{"data-controller" => "notification"}
+  .px-8.flex.bg-green-800.items-center.justify-center.cursor-pointer{"data-action" => "click->notification#toggleNoticeOff"}
+    %p.notice.text-white{"data-notification-target" => "notice"}= notice
+  .px-8.flex.bg-red-800.items-center.justify-center.cursor-pointer{"data-action" => "click->notification#toggleAlertOff"}
+    %p.alert.text-white{"data-notification-target" => "alert"}= alert

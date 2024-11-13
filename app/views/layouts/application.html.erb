@@ -19,7 +19,9 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "layouts/header" %>
+    <%= render "layouts/notification" %>
+    <main class="container mx-auto max-w-7xl my-6 px-8 flex">
       <%= yield %>
     </main>
   </body>
