@@ -1,5 +1,18 @@
-%div
+%div.max-wd-md.flex-shrink-0
+    %h1.text-3xl 
+        = @album.name 
     %div
-        %h1= @album.name
+        = @album.circle.name
+    %div
+        - @album.events.each do | event |
+            = event.name
+            = event.date
+            = event.location
+    
+    %div.w-64.relative
+        - if @album.folder.file.nil?
+            = image_tag 'placeholder.svg', class: ""
+        - else
+            = image_tag @album.folder.url, class: "h-128 w-128"
     %div
         = link_to "Home", root_path

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   
   resources :albums
   get "/circles", to: "circles#index"
+  get "/youtube", to: "youtube#index"
+  get '/event-autocomplete', to: "events#autocomplete"
+  get '/toggle-favorite', to: "albums#toggleFavorite"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,0 +1,20 @@
+%div
+    %h1.text-4xl Search Results
+    %ul.max-wd-md.divide-y.divide-gray-200.pt-10
+    - @response.items.each do | item |
+        %li{ class: 'flex gap-3 bg-gray border border-gray-300 overflow-hidden items-center justify-start mb-5 h-32'}
+            %div.relative.w-56.flex-shrink-0
+                = link_to "https://youtu.be/#{item.id.video_id}" do
+                    = image_tag item.snippet.thumbnails.medium.url, class: ""
+            %div.flex.flex-col.gap-2.py-2.w-full
+                %div
+                    =item.snippet.title
+                %div
+                    =item.snippet.channel_title
+                %div
+                    =link_to "Open on Youtube", "https://youtu.be/#{item.id.video_id}", {"class" => "underline text-indigo-800 decoration-solid", "target" => "_blank"}
+            = link_to new_album_path(vId: item.id.video_id, vTitle: item.snippet.title), {"class" => "h-full"} do
+                %div.flex.flex-col.ml-auto.w-32.bg-indigo-600.text-white.h-full.justify-center
+                    %p.text-center
+                        Create!
+    

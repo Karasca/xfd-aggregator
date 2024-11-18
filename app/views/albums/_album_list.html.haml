@@ -1,0 +1,22 @@
+%ul.max-wd-md.divide-y.divide-gray-200.pt-10{"data-controller" => "star", "data-star-bg-green-class" => "bg-green-100", "data-star-bg-red-class" => "bg-red-100", "data-star-bg-yellow-class" => "bg-yellow-100"}
+    - @albums.each do | album |
+        %li{ class: ['flex gap-3 bg-gray border border-gray-300 overflow-hidden items-center justify-start mb-5',  ("bg-yellow-100" if album.star) ]}
+            = link_to album do
+                %div.relative.w-32.h-32.flex-shrink-0
+                    - if album.folder.file.nil?
+                        = image_tag 'placeholder.svg', class: "size-full"
+                    - else
+                        = image_tag album.folder.url, class: "size-full"
+            %div.flex.flex-col.gap-2.py-2
+                %div
+                    = album.name
+                %div
+                    = album.circle.name
+                %div
+                    - album.events.each do | event |
+                        = event.name
+                        = event.date
+                        = event.location
+            /= link_to root_path, class: "ml-auto" do
+            %div{ class: ["flex flex-col py-2 right-0 ml-auto h-32 px-8 justify-center text cursor-pointer hover:!bg-yellow-200", ( album.star? ? "bg-green-100" : "bg-red-100")], "data-action" => "click->star#toggle", "data-star-id-param" => album.id}
+                %div= album.star? ? "🌟" : "⭐"

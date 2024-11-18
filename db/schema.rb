@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_12_083556) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_16_224521) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -28,6 +28,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_12_083556) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "circle_id", null: false
+    t.string "folder"
+    t.boolean "star"
     t.index ["circle_id"], name: "index_albums_on_circle_id"
   end
 

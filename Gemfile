@@ -68,3 +68,9 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem "discordrb", "~> 3.5"
+
+gem 'jquery-rails'
+
+gem 'google-apis-youtube_v3'
