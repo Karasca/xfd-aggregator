@@ -31,7 +31,9 @@ gem "jbuilder"
 gem "haml"
 
 #carrierwave
+gem 'carrierwave-aws'
 gem 'carrierwave', '~> 3.0'
+
 
 #fiddle
 gem "fiddle"
@@ -74,3 +76,7 @@ gem "discordrb", "~> 3.5"
 gem 'jquery-rails'
 
 gem 'google-apis-youtube_v3'
+
+gem 'mini_magick'
+
+gem 'aws-sdk-rails'

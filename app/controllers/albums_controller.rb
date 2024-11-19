@@ -6,7 +6,7 @@ class AlbumsController < ApplicationController
     @events = Event.all.order(date: :desc)
     if params[:eventIds]
       event_ids = params[:eventIds]
-      @albums = Album.filter_by_event event_ids
+      @albums = Album.filter_by_event(event_ids).order(created_at: :desc)
     else
       @albums = Album.all.order(created_at: :desc)
     end
