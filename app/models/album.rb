@@ -6,6 +6,7 @@ class Album < ApplicationRecord
     accepts_nested_attributes_for :genres, :events, :crossfades, :circle
     mount_uploader :folder, FolderUploader
     attribute :star, default: -> { false }
+    scope :filter_by_event, ->(event_ids_arr) { joins(:events).where(events: { id: event_ids_arr }) }  
 
     # Use existing record for association otherwise make new
     def genres_attributes=(genre_attributes)

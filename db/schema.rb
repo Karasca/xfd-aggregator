@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_11_16_224521) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -27,20 +30,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_224521) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "circle_id", null: false
+    t.bigint "circle_id", null: false
     t.string "folder"
     t.boolean "star"
     t.index ["circle_id"], name: "index_albums_on_circle_id"
   end
 
   create_table "albums_events", id: false, force: :cascade do |t|
-    t.integer "album_id", null: false
-    t.integer "event_id", null: false
+    t.bigint "album_id", null: false
+    t.bigint "event_id", null: false
   end
 
   create_table "albums_genres", id: false, force: :cascade do |t|
-    t.integer "album_id", null: false
-    t.integer "genre_id", null: false
+    t.bigint "album_id", null: false
+    t.bigint "genre_id", null: false
   end
 
   create_table "circles", force: :cascade do |t|
@@ -53,7 +56,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_16_224521) do
     t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "album_id", null: false
+    t.bigint "album_id", null: false
     t.index ["album_id"], name: "index_crossfades_on_album_id"
   end
 

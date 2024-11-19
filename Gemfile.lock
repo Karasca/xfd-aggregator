@@ -235,6 +235,8 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
+    pg (1.5.9-x64-mingw-ucrt)
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
@@ -350,8 +352,6 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    sqlite3 (2.2.0-x64-mingw-ucrt)
-    sqlite3 (2.2.0-x86_64-linux-gnu)
     ssrf_filter (1.2.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
@@ -413,12 +413,12 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  pg (>= 1.4)
   puma (>= 5.0)
   rails (~> 7.2.2)
   rubocop-rails-omakase
   selenium-webdriver
   sprockets-rails
-  sqlite3 (>= 1.4)
   stimulus-rails
   tailwindcss-rails
   turbo-rails
