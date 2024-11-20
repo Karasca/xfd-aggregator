@@ -3,6 +3,6 @@ class YoutubeController < ApplicationController
 
     def index
         @crossfades = Crossfade.all
-        @response = YoutubeApiService.fetch_data
+        @response = YoutubeApiService.fetch_data(params[:pageToken])
     end
 end

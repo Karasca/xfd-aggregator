@@ -1,5 +1,11 @@
 %div
-    %h1.text-4xl Search Results - Youtube
+    %h1.text-4xl Search Results - Youtube 
+    %p.text-l Green backgrounds mean that the video is already in the database.
+    -if @response.prev_page_token
+        %div.py-2.flex.flex-row
+            = link_to youtube_path(pageToken: @response.prev_page_token), {"class" => "rounded-md bg-indigo-600 px-3.5 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"} do
+                %p.text-center
+                    Previous Page
     %ul.max-wd-md.divide-y.divide-gray-200.pt-10
     - @response.items.each do | item |
         %li{ class: ['flex gap-3 border border-gray-300 overflow-hidden items-center justify-start mb-5 h-32', ('bg-green-100' if Crossfade.exists?(link: "https://youtube.com/watch?v=#{item.id.video_id}"))] }
@@ -14,7 +20,11 @@
                 %div
                     =link_to "Open on Youtube", "https://youtu.be/#{item.id.video_id}", {"class" => "underline text-indigo-800 decoration-solid", "target" => "_blank"}
             = link_to new_album_path(vId: item.id.video_id, vTitle: item.snippet.title), {"class" => "h-full"} do
-                %div.flex.flex-col.ml-auto.w-32.bg-indigo-600.text-white.h-full.justify-center
+                %div.flex.flex-col.ml-auto.w-32.bg-green-600.text-white.h-full.justify-center
                     %p.text-center
                         Create!
-    
+    -if @response.next_page_token
+        %div.py-2.flex.flex-row
+            = link_to youtube_path(pageToken: @response.next_page_token), {"class" => "rounded-md bg-indigo-600 px-3.5 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"} do
+                %p.text-center
+                    Next Page
