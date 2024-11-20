@@ -80,3 +80,6 @@ gem 'google-apis-youtube_v3'
 gem 'mini_magick'
 
 gem 'aws-sdk-rails'
+
+gem 'rswag-api'
+gem 'rswag-ui'

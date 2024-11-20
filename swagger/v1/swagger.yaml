@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: XFD Aggregator API
+  version: 1.0.0
+paths:
+  /api/v1/albums:
+    get:
+      summary: Get a list of albums
+      description: Retrieve a list of all albums with their details.
+      responses:
+        '200':
+          description: Albums retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: The unique identifier for the album.
+                    name:
+                      type: string
+                      description: The name of the album.
+                    genres:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the genre.
+                    image:
+                      type: string
+                      format: uri
+                      description: The URL of the album's folder image.
+                    events:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the event.
+                          date:
+                            type: string
+                            format: date
+                            description: The date of the event.
+                          location:
+                            type: string
+                            description: The location of the event.
+                    circle:
+                      type: string
+                      description: The name of the album's circle.
+                    crossfades:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          link:
+                            type: string
+                            format: uri
+                            description: The link to the crossfade audio.
+        '404':
+          description: Albums not found

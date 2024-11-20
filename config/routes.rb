@@ -1,13 +1,27 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   devise_for :admins
+
   root "albums#index"
-  
+
   resources :albums
   get "/circles", to: "circles#index"
   get "/youtube", to: "youtube#index"
+
+  # routes triggered by Stimulus
   get '/event-autocomplete', to: "events#autocomplete"
   get '/toggle-favorite', to: "albums#toggleFavorite"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # api
+  namespace :api do
+    namespace :v1 do
+      defaults format: :json do
+        resources :albums, only: [:index]
+      end
+    end
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -1,8 +1,8 @@
 %div
-    %h1.text-4xl Search Results
+    %h1.text-4xl Search Results - Youtube
     %ul.max-wd-md.divide-y.divide-gray-200.pt-10
     - @response.items.each do | item |
-        %li{ class: 'flex gap-3 bg-gray border border-gray-300 overflow-hidden items-center justify-start mb-5 h-32'}
+        %li{ class: ['flex gap-3 border border-gray-300 overflow-hidden items-center justify-start mb-5 h-32', ('bg-green-100' if Crossfade.exists?(link: "https://youtube.com/watch?v=#{item.id.video_id}"))] }
             %div.relative.w-56.flex-shrink-0
                 = link_to "https://youtu.be/#{item.id.video_id}" do
                     = image_tag item.snippet.thumbnails.medium.url, class: ""
