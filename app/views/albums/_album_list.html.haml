@@ -1,6 +1,11 @@
-%ul.max-wd-md.divide-y.divide-gray-200{"data-controller" => "star", "data-star-bg-green-class" => "bg-green-100", "data-star-bg-red-class" => "bg-red-100", "data-star-bg-yellow-class" => "bg-yellow-100", "data-star-loading-class" => "animate-spin"}
+%ul.max-wd-md.divide-y.divide-gray-200{"data-controller" => "star", 
+"data-star-bg-green-class" => "bg-green-100", 
+"data-star-bg-red-class" => "bg-red-100", 
+"data-star-bg-yellow-class" => "bg-yellow-100", 
+"data-star-loading-class" => "animate-spin"}
     - @albums.each do | album |
-        %li{ class: ['flex gap-3 bg-gray border border-gray-300 overflow-hidden items-center justify-start mb-5',  ("bg-yellow-100" if album.star) ]}
+        %li{ class: ['flex gap-3 bg-gray border border-gray-300 overflow-hidden items-center justify-start mb-5',  
+        ("bg-yellow-100" if album.star) ]}
             = link_to album do
                 %div.relative.w-32.h-32.flex-shrink-0
                     - if album.folder.file.nil?
@@ -17,6 +22,9 @@
                         = event.name
                         = event.date
                         = event.location
-            /= link_to root_path, class: "ml-auto" do
-            %div{ class: ["flex flex-col py-2 right-0 ml-auto h-32 px-8 justify-center text cursor-pointer hover:!bg-yellow-200", ( album.star? ? "bg-green-100" : "bg-red-100")], "data-action" => "click->star#toggle", "data-star-id-param" => album.id}
-                = album.star? ? "🌟" : "⭐"
+            -if admin_signed_in?
+                %div{ class: ["flex flex-col py-2 right-0 ml-auto h-32 px-8 justify-center text cursor-pointer hover:!bg-yellow-200",
+                (album.star? ? "bg-green-100" : "bg-red-100")], 
+                "data-action" => "click->star#toggle", 
+                "data-star-id-param" => album.id}
+                    = album.star? ? "🌟" : "⭐"

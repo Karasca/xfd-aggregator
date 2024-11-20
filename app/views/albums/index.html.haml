@@ -1,6 +1,7 @@
 .container
-    %div.py-2
-        = link_to "Add New Album", new_album_path, class: "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+    - if admin_signed_in?
+        %div.py-2
+            = link_to "Add New Album", new_album_path, class: "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
     %div.py-2.flex.flex-row
         = render "event_filter"
     %div.py-2

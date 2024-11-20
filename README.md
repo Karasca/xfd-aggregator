@@ -8,6 +8,7 @@ Ruby 3.3.5
 ## System dependencies
 
 PostgreSQL
+Redis
 
 ## Configuration
 
@@ -27,6 +28,6 @@ run `rails db:create` after you created the user and rails will create the datab
 
 # Services (job queues, cache servers, search engines, etc.)
 
-discord_bot.rb 
+redis-server
 
 # Deployment instructions
