@@ -1,13 +1,34 @@
+require 'discordrb/webhooks'
+
 class DiscordAlbumService
+    WEBHOOK_URL = "https://discord.com/api/webhooks/1308787029357891697/rGpBm75fzqaoO42r4AbQ1EATlL1RU2GxHoxgoUVYojnROrIguFPaip1JifRlFuqctbHd"
+    
     def initialize(album,url)
         @album = album
         @url = url
     end
 
     def call
-        message = buildMessage()
-        puts "MESSAGE: " + message
-        Bot.send_message(ChannelID, message)
+        client = Discordrb::Webhooks::Client.new(url: WEBHOOK_URL)
+        
+        client.execute do |builder|
+          builder.content = 'A new XFD has been posted'
+          builder.add_embed do |embed|
+            embed.title = @album.name
+            embed.description = "Genres: #{buildGenresList(@album.genres)}"
+            embed.timestamp = Time.now
+            if @album.folder.url
+                embed.image = Discordrb::Webhooks::EmbedImage.new(url: @album.folder.url)
+            end
+            embed.add_field(name: 'Circle', value: @album.circle.name)
+            embed.add_field(name: 'Events', value: buildEventsList(@album.events))
+            embed.add_field(name: 'XFD', value: buildCrossfadesList(@album.crossfades))
+          end
+        end
+
+        # message = buildMessage()
+        # puts "MESSAGE: " + message
+        # Bot.send_message(ChannelID, message)
     end
 
     private

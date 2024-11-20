@@ -27,9 +27,9 @@
         .hidden.sm:ml-6.sm:block
           .flex.space-x-4
             / Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
-            = link_to "Album Releases", root_path, class: "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white", 'aria-current' => "page"
+            = link_to "Album Releases", root_path, class: ["rounded-md px-3 py-2 text-sm font-medium text-white", ( "bg-gray-900 text-white" if current_page?(root_path) )]
             - if admin_signed_in?
-              = link_to "Find on Youtube", youtube_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              = link_to "Find on Youtube", youtube_path, class: ["rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white", ( "bg-gray-900 text-white" if current_page?(youtube_path) )]
               %a.rounded-md.px-3.py-2.text-sm.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white.cursor-not-allowed{href: "#"} Find On Twitter
               %a.rounded-md.px-3.py-2.text-sm.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white.cursor-not-allowed{href: "#"} Find On Soundcloud
       .absolute.inset-y-0.right-0.flex.items-center.pr-2.sm:static.sm:inset-auto.sm:ml-6.sm:pr-0
@@ -58,7 +58,6 @@
   #mobile-menu.sm:hidden
     .space-y-1.px-2.pb-3.pt-2
       / Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
-      %a.block.rounded-md.bg-gray-900.px-3.py-2.text-base.font-medium.text-white{"aria-current" => "page", href: "#"} Dashboard
-      /%a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Team
-      /%a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Projects
-      /%a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Calendar
+      = link_to "Album Releases", root_path, class: ["block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white", ( "bg-gray-900 text-white" if current_page?(root_path) )]
+      - if admin_signed_in?
+        = link_to "Find on Youtube", youtube_path, class: ["block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white", ( "bg-gray-900 text-white" if current_page?(youtube_path) )]
