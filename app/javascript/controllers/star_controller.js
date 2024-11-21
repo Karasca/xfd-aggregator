@@ -20,13 +20,13 @@ export default class extends Controller {
         if(data.star){
             e.target.classList.remove(this.bgRedClass)
             e.target.classList.add(this.bgGreenClass)
-            e.target.value = "🌟"
+            e.target.innerHTML = "🌟"
 
             e.target.parentElement.classList.add(this.bgYellowClass)
         }else{
             e.target.classList.remove(this.bgGreenClass)
             e.target.classList.add(this.bgRedClass)
-            e.target.value = "⭐"
+            e.target.innerHTML = "⭐"
 
             e.target.parentElement.classList.remove(this.bgYellowClass)
         }

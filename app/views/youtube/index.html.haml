@@ -20,7 +20,7 @@
                 %div
                     =link_to "Open on Youtube", "https://youtu.be/#{item.id.video_id}", {"class" => "underline text-indigo-800 decoration-solid", "target" => "_blank"}
             = link_to new_album_path(vId: item.id.video_id, vTitle: item.snippet.title), {"class" => "h-full"} do
-                %div.flex.flex-col.ml-auto.w-32.bg-green-600.text-white.h-full.justify-center
+                %div.flex.flex-col.ml-auto.w-32.bg-green-600.text-white.h-full.justify-center.hover:bg-green-700
                     %p.text-center
                         Create!
     -if @response.next_page_token

@@ -1,0 +1,81 @@
+%div
+    %h1.text-4xl.mb-8 Editing #{@album.name}
+    - if @album.folder.url
+        = image_tag @album.folder.url, class: "w-64 my-6"
+    - else
+        = image_tag "placeholder.svg", class: "w-64 my-6"
+
+    = form_with model: @album, local: true, html: {class: 'w-full'} do |form|
+        %div.flex.flex-wrap.-mx-3.mb-3
+            %div.w-full.px-3.mb-2
+                = form.label :name
+                = form.text_field :name
+        %div.flex.flex-wrap.-mx-3.mb-3
+            %div.w-full.px-3.mb-2
+                = form.label "Album Art", { class: 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' }
+                = form.file_field :folder
+
+        %div.flex.flex-wrap.-mx-3.mb-3.border.border-indigo-200
+            %div.w-full.px-3.mb-3
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Edit or Select Circle
+                = form.collection_select :circle_id, Circle.all, :id, :name, include_blank: true
+                %h4.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Or Edit the Current Circle
+                = form.fields_for :circle do |circle_form|
+                    = circle_form.hidden_field :id
+                    = circle_form.label :name, "Circle Name"
+                    = circle_form.text_field :name
+
+        %div.flex.flex-wrap.-mx-3.mb-3.border.border-indigo-200
+            %div.w-full.px-3.mb-3
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Select Existing Events
+                = form.collection_select :event_ids, @events, :id, :name, {}, multiple: true
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Edit or Remove Current Events
+                - @album.events.each do |event|
+                    = form.fields_for :events, event do |event_form|
+                        .event-fields
+                        = event_form.hidden_field :id
+                        = event_form.label :name, "Event Name"
+                        = event_form.text_field :name
+                        = event_form.label :date, "Event Date"
+                        = event_form.date_field :date
+                        = event_form.label :location, "Event Location"
+                        = event_form.text_field :location
+                        = event_form.check_box :_destroy
+                        = event_form.label :_destroy, "Remove this event"
+
+        %div.flex.flex-wrap.-mx-3.mb-3.border.border-indigo-200
+            %div.w-full.px-3.mb-3
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Select Existing Genres
+                = form.collection_select :genre_ids, @genres, :id, :name, {}, multiple: true
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Edit or Remove Current Genres
+                - @album.genres.each do |genre|
+                    = form.fields_for :genres, genre do |genre_form|
+                        .genre-fields
+                        = genre_form.hidden_field :id
+                        = genre_form.label :name, "Genre Name"
+                        = genre_form.text_field :name
+                        = genre_form.check_box :_destroy
+                        = genre_form.label :_destroy, "Remove this genre"
+
+        %div.flex.flex-wrap.-mx-3.mb-3.border.border-indigo-200
+            %div.w-full.px-3.mb-3
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2  Edit Crossfades
+                - @album.crossfades.each do |crossfade|
+                    = form.fields_for :crossfades, crossfade do |crossfade_form|
+                        .crossfade-fields
+                            = crossfade_form.hidden_field :id
+                            = crossfade_form.label :link, "Crossfade Link"
+                            = crossfade_form.text_field :link
+                            = crossfade_form.check_box :_destroy
+                            = crossfade_form.label :_destroy, "Remove this crossfade"
+
+        %div.flex.flex-wrap.-mx-3.mb-3.border.border-indigo-200
+            %div.w-full.px-3.mb-3
+                %h3.block.uppercase.tracking-wide.text-gray-700.text-xs.font-bold.mb-2 Add New Crossfades
+                = form.fields_for :crossfades, @album.crossfades.build do |new_crossfade_form|
+                    .crossfade-fields
+                        = new_crossfade_form.label :link, "Crossfade Link"
+                        = new_crossfade_form.text_field :link
+
+        %div.cursor-pointer
+            = form.submit "Update Album", class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"

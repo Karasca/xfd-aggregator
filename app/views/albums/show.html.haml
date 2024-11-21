@@ -15,4 +15,6 @@
         - else
             = image_tag @album.folder.url, class: "h-128 w-128"
     %div
-        = link_to "Home", root_path
+        = link_to "Edit", edit_album_path(@album)
+    %div
+        = link_to "Delete", album_path(@album), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }

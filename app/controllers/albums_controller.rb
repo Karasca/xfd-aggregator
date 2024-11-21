@@ -1,8 +1,8 @@
 class AlbumsController < ApplicationController
-  before_action :authenticate_admin!, except: [:index, :show]
-  
+  before_action :authenticate_admin!, except: [ :index, :show ]
+
   def index
-    #newest first
+    # newest first
     @events = Event.all.order(date: :desc)
     if params[:eventIds]
       event_ids = params[:eventIds]
@@ -11,13 +11,23 @@ class AlbumsController < ApplicationController
       @albums = Album.all.order(created_at: :desc)
     end
   end
-  
+
   def show
     @album = Album.find(params[:id])
   end
 
   def new
     @album = Album.new
+    @events = Event.all
+    @genres = Genre.all
+    @circles = Circle.all
+
+
+    @album.events.build
+    @album.genres.build
+    @album.crossfades.build
+    @album.build_circle
+
     if params[:vId]
       @link = "https://youtube.com/watch?v=#{params[:vId]}"
     end
@@ -25,26 +35,49 @@ class AlbumsController < ApplicationController
     if params[:vTitle]
       @videoTitle = params[:vTitle]
     end
-    
   end
 
   def create
     @album = Album.new(album_params)
-    # can this be done easier with Active Record? I couldn't find anything
-    @circle = Circle.find_or_create_by(name: params[:album][:circle_attributes][:name])
-    @album.circle = @circle
+
 
     if @album.save
       DiscordAlbumService.new(@album, url_for(@album)).call
-      redirect_to @album
+      redirect_to root_path
     else
+      @events = Event.all
+      @genres = Genre.all
       puts "Error saving to album: "
       @album.errors.full_messages.each do | message |
       puts message
       end
       render :new, status: :unprocessable_entity
     end
-    
+  end
+
+  def edit
+    @album = Album.find(params[:id])
+    @events = Event.all
+    @genres = Genre.all
+  end
+
+  def update
+    @album = Album.find(params[:id])
+
+    if @album.update(album_params)
+      redirect_to @album
+    else
+      @events = Event.all
+      @genres = Genre.all
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @album = Album.find(params[:id])
+    @album.destroy
+
+    redirect_to root_path, status: :see_other
   end
 
   def toggleFavorite
@@ -59,13 +92,14 @@ class AlbumsController < ApplicationController
     end
   end
 
-  private 
+  private
     def album_params
-      params.require(:album).permit(:name, :folder,
-      genres_attributes: [:name], 
-      events_attributes: [:name, :date, :location],
-      crossfades_attributes: [:link],
-      circle_attributes: [:name]
+      params.require(:album).permit(
+        :name, :folder, :circle_id, event_ids: [], genre_ids: [],
+        circle_attributes: [ :id, :name ],
+        crossfades_attributes: [ :id, :link, :_destroy ],
+        events_attributes: [ :id, :name, :date, :location, :_destroy ],
+        genres_attributes: [ :id, :name, :_destroy ],
       )
     end
 end

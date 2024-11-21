@@ -1,4 +1,4 @@
-require 'discordrb'
+require "discordrb"
 
 ChannelID = 715674388329922640
 

@@ -27,7 +27,7 @@ run `rails db:create` after you created the user and rails will create the datab
 # How to run the test suite
 
 # Services (job queues, cache servers, search engines, etc.)
-
+sudo service postgresql start
 redis-server
 
 # Deployment instructions
