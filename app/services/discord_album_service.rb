@@ -1,7 +1,7 @@
 require "discordrb/webhooks"
 
 class DiscordAlbumService
-    WEBHOOK_URL = "https://discord.com/api/webhooks/1308787029357891697/rGpBm75fzqaoO42r4AbQ1EATlL1RU2GxHoxgoUVYojnROrIguFPaip1JifRlFuqctbHd"
+    WEBHOOK_URL = Rails.application.credentials.dig(:discord, :webhook_url)
 
     def initialize(album, url)
         @album = album
