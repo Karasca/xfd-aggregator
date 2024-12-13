@@ -186,7 +186,7 @@ GEM
       net-http (>= 0.5.0)
     ffi (1.17.0-x64-mingw-ucrt)
     ffi (1.17.0-x86_64-linux-gnu)
-    fiddle (1.1.5)
+    fiddle (1.1.6)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.15.1)
