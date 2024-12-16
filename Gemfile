@@ -32,7 +32,7 @@ gem "haml"
 
 #carrierwave
 gem 'carrierwave-aws'
-gem 'carrierwave', '~> 3.0'
+gem 'carrierwave', '~> 3.1'
 
 
 #fiddle
